@@ -174,7 +174,14 @@ def create_interface():
             }
 
             input_df = pd.DataFrame(data)
+          
+            # Modelin beklediği sütunlara göre hizalama
+            model_features = model.feature_names_in_
+            input_df = input_df.reindex(columns=model_features, fill_value=0)
+            
+            # Tahmin
             prediction = model.predict(input_df)[0]
+
 
             if prediction == 1:
                 st.success("✅ Prediction: Subscribed (Yes)")
