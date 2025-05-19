@@ -174,6 +174,9 @@ def create_interface():
             }
 
             input_df = pd.DataFrame(data)
+          # Align input_df columns with what the model expects
+          input_df = input_df.reindex(columns=model.feature_names_in_, fill_value=0)
+
             prediction = model.predict(input_df)[0]
 
             if prediction == 1:
